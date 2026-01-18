@@ -98,10 +98,10 @@ ERC2771ContextUpgradeable
         __BaseRouter_init();
     }
 
-    receive() external payable {
-        GameStorage.Data storage _s = GameStorage.data();
-        _s.ethAccPerShare += FixedPointMathLib.mulDivDown(msg.value, _s.PRECISION, _s.totalScores);
-    }
+   receive() external payable nonReentrant {
+    GameStorage.Data storage _s = GameStorage.data();
+    _s.ethAccPerShare += FixedPointMathLib.mulDivDown(msg.value, _s.PRECISION, _s.totalScores);
+}
 
     /// @dev Initializes the contract, like a constructor.
     function initializeRouter(
